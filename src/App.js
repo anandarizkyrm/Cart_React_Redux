@@ -7,6 +7,9 @@ const App = () => {
   const price = useSelector((state)=> state.priceReducer)
   const data = useSelector((state)=>state.getDataReducer)
 
+
+  console.log(data)
+
   return (
     <div className="flex items-center justify-center  flex-col py-6 lg:px-32">
         <h1 className="text-2xl text-primary font-semibold">
@@ -25,6 +28,8 @@ const App = () => {
                       price={item.price} 
                       note={item.note}
                       image = {item.image}
+                      qty = {item.qty}
+                      index = {index}
                       />
                 ))}
             </div>

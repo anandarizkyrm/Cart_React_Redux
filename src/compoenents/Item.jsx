@@ -1,25 +1,24 @@
 import React from 'react'
 import { TrashIcon, HeartIcon } from '@heroicons/react/solid'
 import { useDispatch } from 'react-redux';
-const Item = ({name, type, color , size ,  price, note , image}) => {
+const Item = ({name, type, color , size ,  price, note , image, qty, index}) => {
   const dispatch = useDispatch()
-  const [count, setCount]  = React.useState(1);
+
   const handleMin = () =>{
-    if(count > 1){
-        setCount(count - 1)
-        dispatch({type : 'DECREMENT', payload : price})
+    if(qty > 1){
+        
+        dispatch({type : 'DECREMENT', payload : {price, index}})
     }
     return
   }
   const handlePlus = () =>{
-        setCount(count + 1);
-        dispatch({type : 'INCREMENT', payload : price})
+       
+        dispatch({type : 'INCREMENT', payload : {price, index}})
   }
 
 const handleRemove = () =>{
- 
-    dispatch({type : "REMOVE", payload : name})
-    dispatch({type : 'DECREMENT', payload : (price * count).toFixed(2)})
+    dispatch({type : "REMOVE", payload : {name, index}})
+    dispatch({type : "REMOVE_PRICE", payload : (price * qty).toFixed(2)})
 }
   return (
     <div className='w-full mt-12'>
@@ -36,14 +35,14 @@ const handleRemove = () =>{
                                     <button onClick={()=>handleMin()}  data-action="decrement" className=" border text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
                                         <span className="m-auto text-2xl font-thin">−</span>
                                     </button>
-                                    <input type="text" className="outline-none focus:outline-none text-center w-full border font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value={count}></input>
+                                    <input type="text" className="outline-none focus:outline-none text-center w-full border font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none" name="custom-input-number" value={qty}></input>
                                     <button  onClick={()=>handlePlus()} data-action="increment" className="border text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
                                         <span className="m-auto text-2xl font-thin">+</span>
                                     </button>
                                 </div>
                                 <p className='text-primary mt-2 font-light text-left md:text-center text-xs '>{note ? `Note: ${note}` : null}</p>
                         </div>
-                        <p className='text-primary xl:mb-4'>${(price * count).toFixed(2)}</p>
+                        <p className='text-primary xl:mb-4'>${(price * qty).toFixed(2)}</p>
                      </div>
                 <div className="flex mt-6 justify-between xl:w-72">
                     <button onClick={handleRemove} className='flex text-primary py-2 m-0 mr-2 text-xs items-center '> <TrashIcon className='w-6 text-primary mr-2'/>REMOVE ITEM</button>
