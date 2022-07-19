@@ -17,7 +17,7 @@ const Item = ({name, type, color , size ,  price, note , image}) => {
   }
 
 const handleRemove = () =>{
-    setCount(1);
+ 
     dispatch({type : "REMOVE", payload : name})
     dispatch({type : 'DECREMENT', payload : (price * count).toFixed(2)})
 }
