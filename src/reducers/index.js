@@ -28,7 +28,7 @@ export const getDataReducer = (state = data, action) => {
     switch (action.type) {
         case 'REMOVE':
             return state.filter((data)=>(
-                data.item != action.payload
+                data.item !== action.payload
             ))
         default:
             return state;
